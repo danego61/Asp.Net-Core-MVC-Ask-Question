@@ -1,0 +1,76 @@
+﻿@model AnswerQuestionViewModel
+@{
+    ViewBag.Title = "Answer Question";
+}
+@if (Model == null)
+{
+    <div id="card" class="card text-center">
+        <div class="card-header">The quota for answering the questionnaire is full!</div>
+    </div>
+}
+else
+{
+    <div id="card" class="card text-center" data-signed="@if (Model.IsSignedIn){ @Html.Raw("1") } else { @Html.Raw("0") }">
+        <div class="card-header">Please answer all questions.</div>
+        <div class="card-body">
+            <span id="error" style="color: red; white-space: pre-line;"></span>
+            <h3><b>@Model.Name</b> Asks</h3>
+            <div id="main-slider" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner" style="padding:25px">
+                    <div class="carousel-item active" id="questions">
+                        <div id="questions-slider" class="carousel slide" data-ride="carousel" data-interval="3000">
+                            <ol class="carousel-indicators">
+                                @for (int i = 0; i < Model.Questions.Count; i++)
+                                {
+                                    <li data-target="#questions-slider" data-slide-to="@i"></li>
+                                }
+                            </ol>
+                            <div class="carousel-inner">
+                                @foreach (QuestionModel question in Model.Questions)
+                                {
+                                    <div class="carousel-item">
+                                        <h1 class="card-title">@question.Question</h1>
+                                    </div>
+                                }
+                            </div>
+                            <a class="carousel-control-prev" href="#questions-slider" role="button" data-slide="prev" style="justify-content:left">
+                                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(100)"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#questions-slider" role="button" data-slide="next" style="justify-content:right">
+                                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(100);"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                        <div style="margin-top:3rem" class="row">
+                            <button class="btn btn-primary col-sm" id="btn-start">Start</button>
+                        </div>
+                    </div>
+                    <div class="carousel-item" id="name">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Name Surname</span>
+                            </div>
+                            <input type="text" class="form-control" name="name-surname" id="name-surname">
+                        </div>
+                        <button class="btn btn-primary col-sm" id="btn-next" disabled>Next</button>
+                    </div>
+                    <div class="carousel-item" id="answer">
+                        <partial name="_Question" model="Model.Questions" />
+                    </div>
+                    <div class="carousel-item">
+                        <h3 id="correct" style="color:green"></h3>
+                        <h3 id="wrong" style="color:red"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Css{
+        <link rel="stylesheet" href="~/assets/css/question.css" />
+    }
+    @section Script{
+        <script src="~/assets/js/question.js"></script>
+        <script src="~/assets/js/answer_question.js"></script>
+    }
+}

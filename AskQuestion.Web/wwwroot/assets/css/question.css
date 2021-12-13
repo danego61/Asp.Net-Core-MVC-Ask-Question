@@ -1,0 +1,23 @@
+﻿.carousel .carousel-indicators {
+    filter: invert(100);
+    bottom: -3rem;
+}
+
+.carousel .carousel-inner {
+    width: 90%;
+    display: inline-block;
+}
+
+.carousel-item .list-group a {
+    user-select: none;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.carousel-item .list-group a.correct {
+    background-color: green;
+}
+
+.carousel-item .list-group a.wrong {
+    background-color: red;
+}

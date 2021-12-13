@@ -1,0 +1,38 @@
+﻿@model UserSignUpViewModel
+@{
+    ViewBag.Title = "Sign Up";
+}
+@section Css{
+    <link rel="stylesheet" href="~/assets/css/login-style.css" />
+    <style>
+        .validation-summary-errors {
+            color: red;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+    </style>
+}
+<section class=" d-lg-flex justify-content-lg-center align-items-lg-center login-clean" style="background: transparent;">
+    <form asp-action="SignUp">
+        <h2>User Login</h2>
+        <div asp-validation-summary="All"></div>
+        <div class="form-group">
+            <input class="form-control" type="email" placeholder="Email" asp-for="UserEmail">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Name" asp-for="Name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Surname" asp-for="Surname">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" placeholder="Password" asp-for="UserPassword">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" placeholder="Password" asp-for="ReUserPassword">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+        </div>
+    </form>
+</section>

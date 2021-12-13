@@ -1,0 +1,17 @@
+﻿@model AskedQuestionsViewModel[]
+@{
+    ViewBag.Title = "Asked Questions";
+}
+
+<div class="list-group" id="list-tab" role="tablist">
+    @foreach (AskedQuestionsViewModel question in Model)
+    {
+        <a class="list-group-item list-group-item-action flex-column align-items-start" asp-action="QuestionStats" asp-route-id="@question.QuestionUrl">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Question Url: @question.QuestionUrl</h5>
+            </div>
+            <p class="mb-1">@question.QuestionCount questions asked.</p>
+            <p class="mb-1">Answered by @question.QuestionAnswersCount user.</p>
+        </a>
+    }
+</div>

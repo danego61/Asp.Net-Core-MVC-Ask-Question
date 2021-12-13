@@ -1,0 +1,50 @@
+﻿@model QuestionStatsViewModel
+@{
+    ViewBag.Title = "Question Stats";
+}
+
+<div class="card p-2">
+    <button class="btn btn-primary m-3" asp-action="AnswerQuestion" asp-route-id="@Model.Url" onclick="CopyLink(this)">Copy Link</button>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                @foreach (string question in Model.Questions)
+                {
+                    <th scope="col">@question</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.userNames.Length; i++)
+            {
+                <tr>
+                    <th scope="row">@Model.userNames[i]</th>
+                    @for (int ii = 0; ii < Model.Answers.GetLength(1); ii++)
+                    {
+                        <td class="@Html.Raw(Model.IsCorrect[i, ii] ? "correct" : "wrong")">@Model.Answers[i, ii]</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Css{
+    <style>
+        .correct {
+            background-color: green;
+        }
+
+        .wrong {
+            background-color: red;
+        }
+    </style>
+}
+@section Script{
+    <script>
+        function CopyLink(button) {
+            navigator.clipboard.writeText(document.location.origin + button.getAttribute('formaction'));
+        }
+    </script>
+}

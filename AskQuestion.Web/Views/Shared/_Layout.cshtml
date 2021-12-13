@@ -1,0 +1,65 @@
+﻿@using System.Security.Claims
+@{
+    string identity = ((ClaimsIdentity)Context.User.Identity).FindFirst(ClaimTypes.Name)?.Value;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/css/site.css" />
+    @await RenderSectionAsync("Css", false)
+</head>
+<body>
+    <div class="background-image">
+        <div class="container">
+            <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+                <a class="navbar-brand" href="/">Ask Question</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="AskQuestion" asp-controller="Question">Ask New Question</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="AskedQuestions" asp-controller="Question">Asked Questions</a>
+                        </li>
+                        @if (identity == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="SignIn">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="SignUp">Sign Up</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="user-select:none" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @identity
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="Question" asp-action="MyQuestions">My Questions</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-controller="Login" asp-action="LogOut">Sing Out</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+            <div class="m-5">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Script", false)
+</body>
+</html>

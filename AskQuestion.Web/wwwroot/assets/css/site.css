@@ -1,0 +1,17 @@
+﻿body {
+    height: 100vh;
+}
+
+.background-image {
+    background-image: url('/assets/images/background.jpg');
+    background-position: center center;
+    background-size: cover;
+    min-height: 100%;
+    width: 100%;
+    background-attachment: fixed;
+}
+
+.navbar-collapse ul {
+    justify-content: flex-end;
+    width: 100%;
+}
